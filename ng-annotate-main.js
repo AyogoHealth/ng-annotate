@@ -871,11 +871,13 @@ function judgeInjectArraySuspect(node, ctx) {
             }
 
             let e;
-            if (!nodeAfterExtends && !foundSuspectInBody && bnode.type === "ExpressionStatement" && (e = bnode.expression).type === "CallExpression" && e.callee.type === "Identifier" && e.callee.name === "__extends") {
-                const nextStatement = onode.$parent.body[idx + 1];
-                if (nextStatement) {
-                    nodeAfterExtends = nextStatement;
-                }
+            if (!nodeAfterExtends && !foundSuspectInBody && bnode.type === "ExpressionStatement" && (e = bnode.expression).type === "CallExpression"
+                && ((e.callee.type === "Identifier" && e.callee.name === "__extends")
+                    || (e.callee.type === "MemberExpression" && e.callee.property.type === "Identifier" && e.callee.property.name === "__extends"))) {
+                        const nextStatement = onode.$parent.body[idx + 1];
+                        if (nextStatement) {
+                            nodeAfterExtends = nextStatement;
+                        }
             }
         });
         assert(foundSuspectInBody);

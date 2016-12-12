@@ -890,6 +890,20 @@ var FooBar2 = (function (_super) {
     }];
     return FooBar;
 })(Bar);
+var tslib = {};
+var FooBar3 = (function (_super) {
+    tslib.__extends(FooBar, _super);
+    FooBar.$inject = ["$a", "$b"];
+    function FooBar($a, $b) {
+        "ngInject";
+        _super.call(this);
+    }
+    FooBar.onEnter = ["callback", function (callback) {
+        "ngInject";
+        x;
+    }];
+    return FooBar;
+})(Bar);
 
 // snippets that shouldn't fool ng-annotate into generating false positives,
 //   whether we're inside an angular module or not
